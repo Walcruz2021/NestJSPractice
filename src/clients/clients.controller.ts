@@ -1,16 +1,15 @@
-import { Controller, Get,Param } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
+import { ClientsService } from './clients.service';
 
 @Controller('clients')
 export class ClientsController {
-    array=['asfdsa','xxx']
-    // @Get()
-    // getAllClients(){
-    //     return['juan','marcos']
-    // }
-
-    @Get(':id')
-    getClientById(@Param('id') id:string){
-        console.log(this.array[id])
-        return this.array[id]
-    }
+  constructor(private readonly clientService: ClientsService) {}
+  @Get()
+  getAllClients() {
+    return this.clientService.findAll();
+  }
+  @Get(':id')
+  getClientById(@Param('id') id: string) {
+    return this.clientService.findById(id);
+  }
 }
